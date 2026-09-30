@@ -90,8 +90,13 @@
   .hero-art{text-align:center; padding:8px 0;}
   .hero-art img{width:100%; max-width:400px; margin:0 auto 18px;
     filter:drop-shadow(0 18px 22px rgba(0,0,0,.55)) drop-shadow(0 3px 6px rgba(0,0,0,.4));}
-  .hero-art p{font-family:"Barlow Semi Condensed",sans-serif; font-weight:600;
-    font-size:clamp(20px,2.4vw,27px); line-height:1.25; color:#f4d3b4; letter-spacing:.005em;}
+  .hero-art p{font-family:"Barlow Semi Condensed",sans-serif; font-weight:700;
+    font-size:clamp(23px,2.9vw,33px); line-height:1.18; color:#fff; letter-spacing:-.005em;
+    max-width:380px; margin:0 auto; text-wrap:balance;
+    opacity:1;
+    animation:punchline .85s cubic-bezier(.16,.84,.34,1) .55s both;}
+  .hero-art p .dot{color:var(--orange);}
+  @keyframes punchline{ from{opacity:0; transform:translateY(14px) scale(.985);} to{opacity:1; transform:none;} }
 
   /* strip */
   .strip{background:var(--navy-2); color:#fff; border-top:1px solid rgba(255,255,255,.1);}
@@ -119,7 +124,7 @@
   .belt{position:relative; overflow:hidden; padding:4px 0;
     -webkit-mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent);
     mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent);}
-  .belt-track{display:flex; gap:20px; width:max-content; animation:belt 72s linear infinite;}
+  .belt-track{display:flex; gap:20px; width:max-content; animation:belt 40s linear infinite;}
   .belt:hover .belt-track, .belt:focus-within .belt-track{animation-play-state:paused;}
   @keyframes belt{ from{transform:translateX(0);} to{transform:translateX(calc(-50% - 10px));} }
   .rev{width:360px; flex:0 0 360px; background:#fff; border:1px solid var(--line);
@@ -318,8 +323,8 @@
         </div>
       </div>
       <div class="hero-art">
-        <img src="assets/puma.png" alt="" width="400" height="146">
-        <p>Tracking down comfort, one home at a time</p>
+        <img src="assets/puma.svg" alt="" width="400" height="146">
+        <p>Tracking down comfort, one home at a time<span class="dot">.</span></p>
       </div>
     </div>
   </div>
@@ -615,7 +620,7 @@
   <div class="wrap">
     <div class="foot-grid">
       <div class="foot-brand">
-        <img src="assets/puma.png" alt="" width="190" height="69">
+        <img src="assets/puma.svg" alt="" width="190" height="69">
         <p class="foot-name">Henry Heating <span>&amp;</span> Cooling <em>LLC</em></p>
         <p>Family-owned heating and cooling across the Virginia Piedmont for 20+ years.</p>
       </div>
