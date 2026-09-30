@@ -35,6 +35,7 @@
   }
   *{box-sizing:border-box;}
   html{scroll-behavior:smooth;}
+  html{background:var(--navy);}
   body{margin:0; background:#fff; color:var(--ink); font-family:'Barlow',system-ui,sans-serif; font-size:17.5px; line-height:1.6; -webkit-font-smoothing:antialiased;}
   h1,h2,h3{font-family:'Barlow Semi Condensed',sans-serif; font-weight:700; margin:0; line-height:1.08; color:var(--navy); letter-spacing:-0.005em;}
   p{margin:0;} img{max-width:100%;display:block;} a{color:inherit;}
@@ -60,18 +61,20 @@
 
   /* header */
   header.site{position:sticky; top:0; z-index:60; background:var(--navy); color:#fff;}
-  .head-inner{display:flex; align-items:center; gap:20px; padding:12px 0;}
+  .head-inner{display:flex; align-items:center; gap:20px; padding:14px 24px;}
   .brand{display:flex; align-items:center; gap:12px; text-decoration:none; margin-right:auto; color:#fff;}
   .brand img{width:46px;height:46px;object-fit:contain;}
-  .brand .name{display:block; font-family:'Barlow Semi Condensed',sans-serif; font-weight:700; font-size:22px; line-height:1.05; color:#fff;}
+  .brand .name{display:block; white-space:nowrap; font-family:"Barlow Semi Condensed",sans-serif; font-weight:700; font-size:22px; line-height:1.05; color:#fff;}
   .brand .sub{display:block; margin-top:5px; font-size:12px; line-height:1.35; color:#9db2c9; font-weight:500; letter-spacing:.06em;}
   nav.main{display:flex; gap:22px;}
-  nav.main a{text-decoration:none; color:#dce6f0; font-weight:600; font-size:16px;}
+  nav.main a{text-decoration:none; color:#dce6f0; font-weight:600; font-size:16px; white-space:nowrap;}
   nav.main a:hover{color:var(--orange);}
-  .head-phone{display:flex; align-items:center; gap:10px; text-decoration:none; color:#fff;}
+  .head-phone{display:flex; align-items:center; gap:10px; text-decoration:none; color:#fff; flex-shrink:0;}
   .head-phone .icon{font-size:24px; color:var(--orange);}
-  .head-phone small{display:block; font-size:11.5px; color:#9db2c9; font-weight:600; text-transform:uppercase; letter-spacing:.06em;}
-  .head-phone strong{font-family:'Barlow Semi Condensed',sans-serif; font-size:22px;}
+  .head-phone small{display:block; font-size:11.5px; color:#9db2c9; font-weight:600; text-transform:uppercase; letter-spacing:.06em; white-space:nowrap;}
+  .head-phone strong{font-family:"Barlow Semi Condensed",sans-serif; font-size:22px; white-space:nowrap;}
+  .head-inner .btn-orange{white-space:nowrap;}
+  @media (max-width:1150px){ .head-phone{display:none;} }
   .nav-toggle{display:none; background:transparent; border:1px solid rgba(255,255,255,.3); border-radius:4px; padding:9px 11px; line-height:0; font-size:22px; color:#fff;}
 
   /* hero */
@@ -204,7 +207,7 @@
   .foot-name span{color:var(--orange);}
   .foot-name em{display:block; font-style:normal; font-size:15px; font-weight:600;
     letter-spacing:.22em; color:#9db2c9; margin-top:4px;}
-  .foot-bottom{border-top:1px solid rgba(255,255,255,.12);padding:18px 0;font-size:14.5px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;}
+  .foot-bottom{border-top:1px solid rgba(255,255,255,.12);padding:18px 24px;font-size:14.5px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;}
 
   .mobile-bar{display:none;}
 
@@ -224,15 +227,21 @@
     .foot-grid{grid-template-columns:1fr;gap:28px;}
   }
   @media (max-width:600px){
-    body{font-size:16.5px; padding-bottom:80px;}
+    body{font-size:16.5px;}
     .wrap{padding:0 20px;}
     section{padding:52px 0;}
     .hero{padding:38px 0 44px;}
+    .alert .wrap{padding:12px 20px;}
+    .head-inner{padding:16px 20px;}
     .head-phone{display:none;}
     .brand img{width:40px;height:40px;}
     .brand .name{font-size:19px;}
     .brand .sub{display:none;}
     .head-inner > .btn-orange{display:none;}
+    /* clearance for the fixed call bar lives on the footer, so the
+       strip behind it is navy rather than white */
+    footer{padding-bottom:calc(74px + env(safe-area-inset-bottom));}
+    .foot-bottom{padding:22px 20px; gap:8px;}
     .hero-ctas .btn{width:100%;}
     .card,.panel,.step,.state{padding:22px 20px;}
     .rev{width:285px; flex-basis:285px; padding:20px 18px;}
