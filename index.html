@@ -87,16 +87,9 @@
   .assure{display:flex; flex-wrap:wrap; gap:8px 20px; font-size:15.5px; color:#cfdcea;}
   .assure span{display:flex; align-items:center; gap:8px;}
   .assure .icon{color:var(--orange); font-size:18px;}
-  .hero-art{text-align:center; padding:8px 0;}
-  .hero-art img{width:100%; max-width:400px; margin:0 auto 18px;
-    filter:drop-shadow(0 18px 22px rgba(0,0,0,.55)) drop-shadow(0 3px 6px rgba(0,0,0,.4));}
-  .hero-art p{font-family:"Barlow Semi Condensed",sans-serif; font-weight:700;
-    font-size:clamp(23px,2.9vw,33px); line-height:1.18; color:#fff; letter-spacing:-.005em;
-    max-width:380px; margin:0 auto; text-wrap:balance;
-    opacity:1;
-    animation:punchline .85s cubic-bezier(.16,.84,.34,1) .55s both;}
-  .hero-art p .dot{color:var(--orange);}
-  @keyframes punchline{ from{opacity:0; transform:translateY(14px) scale(.985);} to{opacity:1; transform:none;} }
+  .hero-art{background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.12); border-radius:6px; padding:30px 26px; text-align:center;}
+  .hero-art img{width:100%; max-width:330px; margin:0 auto 14px;}
+  .hero-art p{font-size:14.5px; color:#9db2c9; letter-spacing:.04em; text-transform:uppercase; font-weight:600;}
 
   /* strip */
   .strip{background:var(--navy-2); color:#fff; border-top:1px solid rgba(255,255,255,.1);}
@@ -323,8 +316,8 @@
         </div>
       </div>
       <div class="hero-art">
-        <img src="assets/puma.svg" alt="" width="400" height="146">
-        <p>Tracking down comfort, one home at a time<span class="dot">.</span></p>
+        <img src="assets/puma.svg" alt="" width="330" height="120">
+        <p>Tracking down comfort, one home at a time</p>
       </div>
     </div>
   </div>
