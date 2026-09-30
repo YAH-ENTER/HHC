@@ -17,7 +17,7 @@
 <meta property="og:url" content="https://henryheatandcool.com/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@600;700&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@600;700&family=Barlow:wght@400;500;600;700&family=Fraunces:ital,wght@1,400;1,600&display=swap" rel="stylesheet">
 <style>
   :root{
     --navy:#0d2136;
@@ -61,7 +61,7 @@
   .brand{display:flex; align-items:center; gap:12px; text-decoration:none; margin-right:auto; color:#fff;}
   .brand img{width:46px;height:46px;object-fit:contain;}
   .brand .name{display:block; font-family:'Barlow Semi Condensed',sans-serif; font-weight:700; font-size:22px; line-height:1.05; color:#fff;}
-  .brand .sub{display:block; font-size:12.5px; color:#9db2c9; font-weight:500; letter-spacing:.03em;}
+  .brand .sub{display:block; margin-top:5px; font-size:12px; line-height:1.35; color:#9db2c9; font-weight:500; letter-spacing:.06em;}
   nav.main{display:flex; gap:22px;}
   nav.main a{text-decoration:none; color:#dce6f0; font-weight:600; font-size:16px;}
   nav.main a:hover{color:var(--orange);}
@@ -84,9 +84,11 @@
   .assure{display:flex; flex-wrap:wrap; gap:8px 20px; font-size:15.5px; color:#cfdcea;}
   .assure span{display:flex; align-items:center; gap:8px;}
   .assure .icon{color:var(--orange); font-size:18px;}
-  .hero-art{background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.12); border-radius:6px; padding:30px 26px; text-align:center;}
-  .hero-art img{width:100%; max-width:330px; margin:0 auto 14px;}
-  .hero-art p{font-size:14.5px; color:#9db2c9; letter-spacing:.04em; text-transform:uppercase; font-weight:600;}
+  .hero-art{text-align:center; padding:8px 0;}
+  .hero-art img{width:100%; max-width:400px; margin:0 auto 18px;
+    filter:drop-shadow(0 18px 22px rgba(0,0,0,.55)) drop-shadow(0 3px 6px rgba(0,0,0,.4));}
+  .hero-art p{font-family:"Fraunces",Georgia,serif; font-style:italic; font-weight:400;
+    font-size:clamp(19px,2.2vw,25px); line-height:1.35; color:#f4d3b4; letter-spacing:0;}
 
   /* strip */
   .strip{background:var(--navy-2); color:#fff; border-top:1px solid rgba(255,255,255,.1);}
@@ -174,7 +176,12 @@
   footer h4{color:#fff;font-family:'Barlow Semi Condensed',sans-serif;font-size:17px;letter-spacing:.06em;text-transform:uppercase;margin:0 0 14px;}
   footer ul{list-style:none;margin:0;padding:0;display:grid;gap:10px;}
   footer a{color:#dce6f0;text-decoration:none;} footer a:hover{color:var(--orange);}
-  .foot-brand img{width:150px;border-radius:5px;margin-bottom:14px;}
+  .foot-brand img{width:190px; margin-bottom:16px; filter:drop-shadow(0 10px 16px rgba(0,0,0,.5));}
+  .foot-name{font-family:'Barlow Semi Condensed',sans-serif; font-weight:700; font-size:31px;
+    line-height:1.02; color:#fff; letter-spacing:-0.01em; margin-bottom:10px;}
+  .foot-name span{color:var(--orange);}
+  .foot-name em{display:block; font-style:normal; font-size:15px; font-weight:600;
+    letter-spacing:.22em; color:#9db2c9; margin-top:4px;}
   .foot-bottom{border-top:1px solid rgba(255,255,255,.12);padding:18px 0;font-size:14.5px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;}
 
   .mobile-bar{display:none;}
@@ -237,7 +244,7 @@
 <div class="alert">
   <div class="wrap">
     <svg class="icon" aria-hidden="true"><use href="#i-phone"/></svg>
-    <span>No heat or no cooling? Call or text <a href="tel:+15712150260">(571) 215-0260</a></span>
+    <span>No heat or no cooling? Free diagnostics. Call or text <a href="tel:+15712150260">(571) 215-0260</a></span>
   </div>
 </div>
 
@@ -276,6 +283,7 @@
           <a href="#book" class="btn btn-outline"><svg class="icon" aria-hidden="true"><use href="#i-cal"/></svg> Book a visit</a>
         </div>
         <div class="assure">
+          <span><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg> Free diagnostics</span>
           <span><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg> 20+ years</span>
           <span><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg> Licensed &amp; insured</span>
           <span><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg> Every major brand</span>
@@ -283,7 +291,7 @@
         </div>
       </div>
       <div class="hero-art">
-        <img src="assets/puma.png" alt="" width="330" height="120">
+        <img src="assets/puma-clean.png" alt="" width="400" height="146">
         <p>Tracking down comfort, one home at a time</p>
       </div>
     </div>
@@ -295,7 +303,7 @@
     <div class="i"><svg class="icon" aria-hidden="true"><use href="#i-home"/></svg><div><b>Family owned</b><small>You get us, not a call center</small></div></div>
     <div class="i"><svg class="icon" aria-hidden="true"><use href="#i-wrench"/></svg><div><b>All major brands</b><small>Whatever you already have</small></div></div>
     <div class="i"><svg class="icon" aria-hidden="true"><use href="#i-shield"/></svg><div><b>Licensed &amp; insured</b><small>In Virginia</small></div></div>
-    <div class="i"><svg class="icon" aria-hidden="true"><use href="#i-clock"/></svg><div><b>Emergency calls</b><small>No heat, no cooling</small></div></div>
+    <div class="i"><svg class="icon" aria-hidden="true"><use href="#i-clock"/></svg><div><b>Free diagnostics</b><small>No charge to find the problem</small></div></div>
   </div>
 </div>
 
@@ -307,7 +315,7 @@
     </div>
     <div class="steps">
       <div class="step"><b>Step 1</b><h3>You call or send the form</h3><p>Tell us what the system is doing. If it's urgent, call — it's faster, and you'll talk to someone in the family.</p></div>
-      <div class="step"><b>Step 2</b><h3>We set a time</h3><p>We call you back to schedule, usually within one business day, and tell you what to expect before we arrive.</p></div>
+      <div class="step"><b>Step 2</b><h3>We set a time</h3><p>We call you back to schedule, usually within one business day, and tell you what to expect before we arrive. Finding the problem is free.</p></div>
       <div class="step"><b>Step 3</b><h3>We fix it</h3><p>We find the problem, explain what we found, and repair or replace it. Residential or commercial, any major brand.</p></div>
     </div>
   </div>
@@ -515,7 +523,8 @@
   <div class="wrap">
     <div class="foot-grid">
       <div class="foot-brand">
-        <img src="assets/logo-full.png" alt="Henry Heating &amp; Cooling LLC" width="150">
+        <img src="assets/puma-clean.png" alt="" width="190" height="69">
+        <p class="foot-name">Henry Heating <span>&amp;</span> Cooling <em>LLC</em></p>
         <p>Family-owned heating and cooling across the Virginia Piedmont for 20+ years.</p>
       </div>
       <div><h4>Explore</h4><ul>
