@@ -20,7 +20,7 @@
 <meta property="og:url" content="https://henryheatandcool.com/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@600;700&family=Barlow:wght@400;500;600;700&family=Fraunces:ital,wght@1,400;1,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@600;700&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
     --navy:#0d2136;
@@ -90,8 +90,8 @@
   .hero-art{text-align:center; padding:8px 0;}
   .hero-art img{width:100%; max-width:400px; margin:0 auto 18px;
     filter:drop-shadow(0 18px 22px rgba(0,0,0,.55)) drop-shadow(0 3px 6px rgba(0,0,0,.4));}
-  .hero-art p{font-family:"Fraunces",Georgia,serif; font-style:italic; font-weight:400;
-    font-size:clamp(19px,2.2vw,25px); line-height:1.35; color:#f4d3b4; letter-spacing:0;}
+  .hero-art p{font-family:"Barlow Semi Condensed",sans-serif; font-weight:600;
+    font-size:clamp(20px,2.4vw,27px); line-height:1.25; color:#f4d3b4; letter-spacing:.005em;}
 
   /* strip */
   .strip{background:var(--navy-2); color:#fff; border-top:1px solid rgba(255,255,255,.1);}
@@ -113,6 +113,27 @@
   .step b{font-family:'Barlow Semi Condensed',sans-serif; font-size:15px; letter-spacing:.1em; text-transform:uppercase; color:var(--orange); display:block; margin-bottom:8px;}
   .step h3{font-size:23px; margin-bottom:8px;}
   .step p{color:var(--muted); font-size:16.5px;}
+
+  /* reviews conveyor */
+  .reviews{padding-bottom:64px;}
+  .belt{position:relative; overflow:hidden; padding:4px 0;
+    -webkit-mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent);
+    mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent);}
+  .belt-track{display:flex; gap:20px; width:max-content; animation:belt 72s linear infinite;}
+  .belt:hover .belt-track, .belt:focus-within .belt-track{animation-play-state:paused;}
+  @keyframes belt{ from{transform:translateX(0);} to{transform:translateX(calc(-50% - 10px));} }
+  .rev{width:360px; flex:0 0 360px; background:#fff; border:1px solid var(--line);
+    border-top:4px solid var(--orange); border-radius:5px; padding:24px 22px;
+    display:flex; flex-direction:column;}
+  .rev .quote-mark{font-family:'Barlow Semi Condensed',sans-serif; font-size:40px; line-height:.6;
+    color:var(--orange); margin-bottom:10px;}
+  .rev p{font-size:16px; color:#33404e; margin-bottom:16px;}
+  .rev .who{margin-top:auto; font-family:'Barlow Semi Condensed',sans-serif; font-weight:700;
+    font-size:19px; color:var(--navy);}
+  @media (prefers-reduced-motion:reduce){
+    .belt{overflow-x:auto;}
+    .belt-track{animation:none;}
+  }
 
   /* services */
   .svc{display:grid; grid-template-columns:1fr 1fr; gap:22px;}
@@ -216,6 +237,8 @@
     .head-inner > .btn-orange{display:none;}
     .hero-ctas .btn{width:100%;}
     .card,.panel,.step,.state{padding:22px 20px;}
+    .rev{width:285px; flex-basis:285px; padding:20px 18px;}
+    .rev p{font-size:15.5px;}
     .two{grid-template-columns:1fr;}
     .band .phone b{font-size:34px;}
     .alert .wrap{font-size:14.5px;}
@@ -259,6 +282,7 @@
     </a>
     <nav class="main" id="nav" aria-label="Main">
       <a href="#how">How it works</a>
+      <a href="#reviews">Reviews</a>
       <a href="#services">Services</a>
       <a href="#area">Service area</a>
       <a href="#brands">Brands</a>
@@ -320,6 +344,71 @@
       <div class="step"><b>Step 1</b><h3>You call or send the form</h3><p>Tell us what the system is doing. If it's urgent, call — it's faster, and you'll talk to someone in the family.</p></div>
       <div class="step"><b>Step 2</b><h3>We set a time</h3><p>We call you back to schedule, usually within one business day, and tell you what to expect before we arrive. Finding the problem is free.</p></div>
       <div class="step"><b>Step 3</b><h3>We fix it</h3><p>We find the problem, explain what we found, and repair or replace it. Residential or commercial, any major brand.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="alt reviews" id="reviews">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>What customers say</h2>
+      <p>In their own words.</p>
+    </div>
+  </div>
+  <div class="belt">
+    <div class="belt-track">
+      <!-- first pass -->
+      <figure class="rev">
+        <div class="quote-mark" aria-hidden="true">&ldquo;</div>
+        <blockquote><p>If you need a great HVAC guy, use Henry!</p></blockquote>
+        <figcaption class="who">Hillary Cassella Rogers</figcaption>
+      </figure>
+      <figure class="rev">
+        <div class="quote-mark" aria-hidden="true">&ldquo;</div>
+        <blockquote><p>It was time to say goodbye and say hello to New HVAC to our house. Like always, Henry Funes delivered great customer service and we are ready for summer! Please call Henry at (571) 215-0260 for all your HVAC needs &amp; questions. Thank you, Henry!!</p></blockquote>
+        <figcaption class="who">Kevin Lee</figcaption>
+      </figure>
+      <figure class="rev">
+        <div class="quote-mark" aria-hidden="true">&ldquo;</div>
+        <blockquote><p>Henry Funes is the best and an honest HVAC man. He installed and did all the work on my new house. He has also done work on my rentals. If you need a good honest HVAC man call him.</p></blockquote>
+        <figcaption class="who">Susie Sacra Delgado</figcaption>
+      </figure>
+      <figure class="rev">
+        <div class="quote-mark" aria-hidden="true">&ldquo;</div>
+        <blockquote><p>Henry Funes runs a great Company. Give him a call.</p></blockquote>
+        <figcaption class="who">Bob Holland</figcaption>
+      </figure>
+      <figure class="rev">
+        <div class="quote-mark" aria-hidden="true">&ldquo;</div>
+        <blockquote><p>Henry Funes is a great person: honest, hard working, but most of all he stands behind his work and will make it right if anything goes wrong. He has great prices on all makes and models.</p></blockquote>
+        <figcaption class="who">Liane Carlock</figcaption>
+      </figure>
+      <!-- second pass, duplicated so the belt loops seamlessly -->
+      <figure class="rev" aria-hidden="true">
+        <div class="quote-mark">&ldquo;</div>
+        <blockquote><p>If you need a great HVAC guy, use Henry!</p></blockquote>
+        <figcaption class="who">Hillary Cassella Rogers</figcaption>
+      </figure>
+      <figure class="rev" aria-hidden="true">
+        <div class="quote-mark">&ldquo;</div>
+        <blockquote><p>It was time to say goodbye and say hello to New HVAC to our house. Like always, Henry Funes delivered great customer service and we are ready for summer! Please call Henry at (571) 215-0260 for all your HVAC needs &amp; questions. Thank you, Henry!!</p></blockquote>
+        <figcaption class="who">Kevin Lee</figcaption>
+      </figure>
+      <figure class="rev" aria-hidden="true">
+        <div class="quote-mark">&ldquo;</div>
+        <blockquote><p>Henry Funes is the best and an honest HVAC man. He installed and did all the work on my new house. He has also done work on my rentals. If you need a good honest HVAC man call him.</p></blockquote>
+        <figcaption class="who">Susie Sacra Delgado</figcaption>
+      </figure>
+      <figure class="rev" aria-hidden="true">
+        <div class="quote-mark">&ldquo;</div>
+        <blockquote><p>Henry Funes runs a great Company. Give him a call.</p></blockquote>
+        <figcaption class="who">Bob Holland</figcaption>
+      </figure>
+      <figure class="rev" aria-hidden="true">
+        <div class="quote-mark">&ldquo;</div>
+        <blockquote><p>Henry Funes is a great person: honest, hard working, but most of all he stands behind his work and will make it right if anything goes wrong. He has great prices on all makes and models.</p></blockquote>
+        <figcaption class="who">Liane Carlock</figcaption>
+      </figure>
     </div>
   </div>
 </section>
@@ -532,6 +621,7 @@
       </div>
       <div><h4>Explore</h4><ul>
         <li><a href="#how">How it works</a></li>
+        <li><a href="#reviews">Reviews</a></li>
         <li><a href="#services">Services</a></li>
         <li><a href="#area">Service area</a></li>
         <li><a href="#brands">Brands we service</a></li>
