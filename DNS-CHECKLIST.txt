@@ -1,0 +1,199 @@
+================================================================================
+HENRY HEAT AND COOL - DNS SETUP AT NORTHWEST REGISTERED AGENT
+Domain: henryheatandcool.com    Host: GitHub Pages (YAH-ENTER/HHC)
+Contact email in use: Henryfunes0625@yahoo.com
+Generated 2026-10-06.
+================================================================================
+
+READ FIRST - WHAT IS ALREADY DONE, AND WHAT YOU DO NOT NEED
+
+ A. The repo side is already configured.
+    CNAME exists at the repo root and contains henryheatandcool.com.
+    So you only need the records in Section 1 plus the Pages settings
+    confirmation in Section 2 - not the file creation.
+
+ B. You do NOT need MX, SPF or DKIM records for mail.
+    The site publishes Henryfunes0625@yahoo.com directly, in 8 places
+    (index.html lines 649, 656, 684, and the booking handoff at line 763).
+    Nothing sends or receives mail AT henryheatandcool.com, so there is no
+    mail to route. Skip straight past any MX instructions.
+    Section 3 is the opposite: records that stop others from SPOOFING a
+    domain that sends no mail. Optional but cheap and worth doing.
+
+ C. The custom domain matters for the favicons.
+    index.html references /favicon.ico, /favicon-32.png, /favicon-48.png,
+    /favicon-192.png and /apple-touch-icon.png with absolute paths, while
+    assets/ is relative. Under a project path those absolute ones 404.
+    At the apex domain everything resolves. The CNAME file already handles
+    this - just don't remove it.
+
+ D. Could not verify the live zone from here.
+    dig is not installed in this environment and DNS-over-HTTPS is blocked
+    by the network proxy, so the current records are UNKNOWN to me. Run the
+    checks in Section 4 from your own machine before and after editing.
+
+--------------------------------------------------------------------------------
+SECTION 0 - DO THIS FIRST
+--------------------------------------------------------------------------------
+
+[ ] 0.1  Find out where DNS is actually served from:
+             nslookup -type=NS henryheatandcool.com
+         If the nameservers are NOT Northwest's, their zone editor is
+         ignored entirely and Section 1 must be done wherever they point
+         (Cloudflare, GoDaddy, a web host, etc.). Registrar does not
+         always equal DNS host.
+
+[ ] 0.2  Record what is already there before changing anything:
+             nslookup henryheatandcool.com
+             nslookup www.henryheatandcool.com
+         Write the current values down so you can roll back.
+
+--------------------------------------------------------------------------------
+SECTION 1 - WEBSITE RECORDS (required)
+--------------------------------------------------------------------------------
+Northwest: log in -> Domains -> henryheatandcool.com -> DNS Settings /
+DNS Management / Zone File. Labels vary; look for the zone editor.
+
+[ ] 1.1  Remove conflicting records first.
+         Delete any parking-page A record, any CNAME on the apex, and any
+         existing A/CNAME on "www".
+         NEVER put a CNAME on the apex (@) - it violates the DNS spec and
+         breaks any other record on that name.
+
+[ ] 1.2  Four A records on the apex.
+         Host/Name: @  (or blank, or henryheatandcool.com - whichever
+         Northwest's field accepts)     Type: A     TTL: 3600
+
+             185.199.108.153
+             185.199.109.153
+             185.199.110.153
+             185.199.111.153
+
+         All four. These are GitHub's load balancers, not alternatives.
+
+[ ] 1.3  Four AAAA records on the apex. Same Host/Name: @
+         Type: AAAA     TTL: 3600
+
+             2606:50c0:8000::153
+             2606:50c0:8001::153
+             2606:50c0:8002::153
+             2606:50c0:8003::153
+
+         Recommended, but add the A records too - never AAAA alone.
+
+[ ] 1.4  One CNAME for www.
+         Host/Name: www
+         Type: CNAME
+         Value: yah-enter.github.io
+         (Add a trailing dot if Northwest requires one.)
+         This is the github.io hostname - NOT yah-enter.github.io/HHC.
+
+[ ] 1.5  Do NOT use Northwest's "domain forwarding" / "URL forwarding".
+         It serves an HTTP redirect, which blocks GitHub's HTTPS
+         certificate issuance. Use the records above instead.
+
+--------------------------------------------------------------------------------
+SECTION 2 - GITHUB SIDE (confirm, mostly already done)
+--------------------------------------------------------------------------------
+
+[ ] 2.1  CNAME file - ALREADY PRESENT at the repo root containing
+         henryheatandcool.com. Verify it is still there and unchanged.
+         Do not delete it; Pages reads it on every deploy.
+
+[ ] 2.2  GitHub -> YAH-ENTER/HHC -> Settings -> Pages
+         Confirm Custom domain reads henryheatandcool.com and the DNS
+         check is green. If it was saved before the records existed,
+         re-save it to force a re-check.
+
+[ ] 2.3  Tick "Enforce HTTPS". Only available once the DNS check passes
+         and the certificate is issued. Without it the site serves plain
+         HTTP.
+
+[ ] 2.4  Settings -> Pages -> Build and deployment -> confirm the source
+         branch is the one you actually deploy from (repo default is main).
+
+--------------------------------------------------------------------------------
+SECTION 3 - ANTI-SPOOFING (optional, recommended - no mail hosting needed)
+--------------------------------------------------------------------------------
+Because henryheatandcool.com sends no mail, you can publish records that
+tell the world so. This stops spammers forging "from" addresses at your
+domain, which protects the business name.
+
+[ ] 3.1  SPF - hard fail everything.
+         Host/Name: @     Type: TXT
+         Value:  v=spf1 -all
+         Only ONE SPF record per domain. If one already exists, do not add
+         a second - edit it.
+
+[ ] 3.2  DMARC - reject.
+         Host/Name: _dmarc     Type: TXT
+         Value:  v=DMARC1; p=reject; rua=mailto:Henryfunes0625@yahoo.com
+
+[ ] 3.3  Optional - null MX (RFC 7505), declares the domain accepts no mail.
+         Host/Name: @     Type: MX     Priority: 0     Value: .
+         WARNING: only add this if you are sure you will never want
+         info@henryheatandcool.com. It is a deliberate dead end.
+
+[ ] 3.4  IF you later want info@henryheatandcool.com forwarding to the
+         Yahoo inbox: that needs real MX records from an email provider,
+         and items 3.1-3.3 must be revised at the same time (SPF and DMARC
+         as above would fight it). Free Yahoo Mail cannot host a custom
+         domain - custom-domain mail is Turbify (paid), so forwarding
+         through Northwest's email service or Cloudflare Email Routing is
+         the realistic route. Do not attempt this and Section 3 together
+         without reworking both.
+
+--------------------------------------------------------------------------------
+SECTION 4 - VERIFY (after propagation, 15 min to 48 h)
+--------------------------------------------------------------------------------
+
+[ ] 4.1  nslookup henryheatandcool.com
+         Expect the four 185.199.x.153 addresses.
+[ ] 4.2  nslookup www.henryheatandcool.com
+         Expect yah-enter.github.io, then GitHub's addresses.
+[ ] 4.3  Browse https://henryheatandcool.com - padlock, no warning.
+[ ] 4.4  Browse http://henryheatandcool.com - must redirect to HTTPS.
+[ ] 4.5  Browse https://www.henryheatandcool.com - same site.
+[ ] 4.6  Hard-refresh. Confirm the favicon appears in the browser tab and
+         the logo and brand images load (fact C above).
+[ ] 4.7  Check the sitemap resolves: https://henryheatandcool.com/sitemap.xml
+[ ] 4.8  Click the Email link and the booking form's fallback link.
+         Both must open addressed to Henryfunes0625@yahoo.com.
+
+--------------------------------------------------------------------------------
+SECTION 5 - UNVERIFIED - CONFIRM WITH NORTHWEST
+--------------------------------------------------------------------------------
+
+[ ] 5.1  Northwest's exact DNS editor menu labels, and whether the apex
+         host field wants "@", blank, or the full domain.
+[ ] 5.2  Whether Northwest requires a trailing dot on CNAME values.
+[ ] 5.3  Whether Northwest is registrar only, or also the DNS host
+         (see item 0.1 - this decides whether any of Section 1 applies).
+
+--------------------------------------------------------------------------------
+SECTION 6 - SEPARATE ISSUE, NOT DNS
+--------------------------------------------------------------------------------
+
+[ ] 6.1  The booking form is a mailto: handoff, not a real form post.
+         index.html:624 defines the form; index.html:763 sends it via
+         window.location.href = 'mailto:' + BOOKING_EMAIL.
+         This loses leads on mobile - many phones open no mail app, or
+         open one the customer never finished setting up, and the request
+         vanishes with no record on either side.
+         Fix: a Web3Forms endpoint, same as the District Roofing site.
+         It requires ZERO DNS records - the browser posts straight to
+         api.web3forms.com and Web3Forms delivers to whichever address
+         owns the key. Free tier. Register it with
+         Henryfunes0625@yahoo.com.
+         Not required for DNS; flagged because it is the bigger
+         lead-capture risk of the two.
+
+--------------------------------------------------------------------------------
+ORDER OF OPERATIONS
+--------------------------------------------------------------------------------
+  1. Section 0 - confirm where DNS is served from, and snapshot current state.
+  2. Section 1 - the eight apex records plus the www CNAME.
+  3. Section 2 - confirm Pages settings; wait for green, then Enforce HTTPS.
+  4. Section 4 - verification pass.
+  5. Section 3 - anti-spoofing, once the site is confirmed live.
+================================================================================
