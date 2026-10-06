@@ -214,6 +214,17 @@
   .field textarea{min-height:88px;resize:vertical;}
   .two{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
   .note{font-size:14.5px;color:var(--muted);margin-top:12px;}
+  /* honeypot: off-screen rather than display:none, which some bots skip */
+  .botcheck{position:absolute !important; left:-9999px !important; width:1px; height:1px; opacity:0; pointer-events:none;}
+  .h-captcha{margin:18px 0 4px; max-width:100%; overflow:hidden;}
+  .book > *{min-width:0;}
+  .panel{min-width:0;}
+  /* hCaptcha renders a fixed 302px widget; scale it on the narrowest phones */
+  @media (max-width:359px){ .h-captcha{transform:scale(.76); transform-origin:0 0; height:62px; width:232px;} }
+  .form-error{display:none; margin-top:12px; padding:12px 14px; border-radius:4px;
+    background:#fdecea; border:1px solid #f0b4ae; color:#8a2318; font-size:15px;}
+  .form-error.show{display:block;}
+  #submitBtn[disabled]{opacity:.65; cursor:default;}
   .confirm{display:none; margin-top:16px; border:1px solid #bcd9bf; background:#eef7ef; border-radius:4px; padding:16px 18px; font-size:16px;}
   .confirm.show{display:flex; gap:11px; align-items:flex-start;}
   .confirm .icon{color:#2e7d34; font-size:20px; margin-top:2px;}
@@ -621,14 +632,23 @@
       <div class="panel">
         <h3>Request a callback</h3>
         <p>Name and number is enough. Everything else is optional.</p>
-        <form id="bookingForm">
+        <form id="bookingForm" novalidate>
+          <input type="hidden" name="access_key" value="6827e93b-02de-4a63-8eb8-bf94fb631329">
+          <input type="hidden" name="subject" value="New service request from henryheatandcool.com">
+          <input type="hidden" name="from_name" value="Henry Heating &amp; Cooling website">
+          <!-- honeypot: real people never see this, bots fill it in -->
+          <input type="checkbox" name="botcheck" class="botcheck" tabindex="-1" autocomplete="off">
           <div class="two">
-            <div class="field"><label for="fname">Name</label><input id="fname" name="fname" required placeholder="Jane Smith"></div>
-            <div class="field"><label for="fphone">Phone</label><input id="fphone" name="fphone" type="tel" required placeholder="(555) 555-5555"></div>
+            <div class="field"><label for="fname">Name</label><input id="fname" name="Name" required placeholder="Jane Smith" autocomplete="name"></div>
+            <div class="field"><label for="fphone">Phone</label><input id="fphone" name="Phone" type="tel" required placeholder="(555) 555-5555" autocomplete="tel"></div>
+          </div>
+          <div class="two">
+            <div class="field"><label for="femail">Email (optional)</label><input id="femail" name="Email" type="email" placeholder="jane@email.com" autocomplete="email"></div>
+            <div class="field"><label for="faddress">Town or ZIP (optional)</label><input id="faddress" name="Town or ZIP" placeholder="Warrenton, VA"></div>
           </div>
           <div class="field"><label for="fservice">What's wrong? (optional)</label>
-            <select id="fservice" name="fservice">
-              <option value="" selected>Not sure yet</option>
+            <select id="fservice" name="Service">
+              <option value="Not sure yet" selected>Not sure yet</option>
               <option>No heat</option>
               <option>No cooling</option>
               <option>Repair</option>
@@ -637,23 +657,23 @@
               <option>Commercial</option>
             </select>
           </div>
-          <div class="field"><label for="faddress">Town or ZIP (optional)</label><input id="faddress" name="faddress" placeholder="Warrenton, VA"></div>
-          <div class="field"><label for="fmessage">Details (optional)</label><textarea id="fmessage" name="fmessage" maxlength="1200" placeholder="Furnace won't turn on, started last night"></textarea></div>
-          <button type="submit" class="btn btn-orange" style="width:100%"><svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg> Open in my email</button>
-          <p class="note">This opens your email app with everything filled in. Just hit send.</p>
+          <div class="field"><label for="fmessage">Details (optional)</label><textarea id="fmessage" name="Details" maxlength="1200" placeholder="Furnace won't turn on, started last night"></textarea></div>
+          <div class="h-captcha" data-captcha="true"></div>
+          <button type="submit" class="btn btn-orange" id="submitBtn" style="width:100%"><svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg> Send request</button>
+          <p class="note">Goes straight to us. We usually call back within one business day.</p>
+          <p class="form-error" id="formError" role="alert"></p>
         </form>
         <div class="confirm" id="confirmMsg" role="status">
           <svg class="icon" aria-hidden="true"><use href="#i-check-circle"/></svg>
           <div>
-            <p>Your email app should now be open with your request filled in. Just hit send.</p>
-            <p class="fallback">Nothing opened? Copy your request and email it to <a href="mailto:Henryfunes0625@yahoo.com">Henryfunes0625@yahoo.com</a>, or call <a href="tel:+15712150260">(571) 215-0260</a>.</p>
-            <button type="button" class="btn btn-orange" id="copyBtn" style="margin-top:12px; padding:10px 18px; font-size:15px;">Copy my request</button>
+            <p><strong>Request sent.</strong> We'll call you back to set a time, usually within one business day.</p>
+            <p class="fallback">In a hurry? Call <a href="tel:+15712150260">(571) 215-0260</a>.</p>
           </div>
         </div>
       </div>
       <div class="contact-list">
         <div class="row"><svg class="icon" aria-hidden="true"><use href="#i-phone"/></svg><div><b>Call or text</b><a href="tel:+15712150260">(571) 215-0260</a></div></div>
-        <div class="row"><svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg><div><b>Email</b><a href="mailto:Henryfunes0625@yahoo.com">Henryfunes0625@yahoo.com</a></div></div>
+        <div class="row"><svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg><div><b>Email</b><a href="#book" data-mail="text">email us</a></div></div>
         <div class="row"><svg class="icon" aria-hidden="true"><use href="#i-pin"/></svg><div><b>Service area</b>Fauquier, Culpeper &amp; surrounding counties</div></div>
         <div class="row"><svg class="icon" aria-hidden="true"><use href="#i-shield"/></svg><div><b>Licensed &amp; insured</b>Family owned, 20+ years</div></div>
       </div>
@@ -681,7 +701,7 @@
       </ul></div>
       <div><h4>Contact</h4><ul>
         <li><a href="tel:+15712150260">(571) 215-0260</a></li>
-        <li><a href="mailto:Henryfunes0625@yahoo.com">Henryfunes0625@yahoo.com</a></li>
+        <li><a href="#book" data-mail="text">email us</a></li>
         <li>Fauquier · Culpeper · Rappahannock</li>
       </ul></div>
     </div>
@@ -704,7 +724,6 @@
   "name":"Henry Heating & Cooling LLC",
   "url":"https://henryheatandcool.com/",
   "telephone":"+1-571-215-0260",
-  "email":"Henryfunes0625@yahoo.com",
   "image":"https://henryheatandcool.com/favicon-192.png",
   "areaServed":[
     {"@type":"AdministrativeArea","name":"Fauquier County, Virginia"},
@@ -730,54 +749,80 @@
   });
   document.querySelectorAll('#nav a').forEach(a => a.addEventListener('click', () => hdr.classList.remove('open')));
 
-  const BOOKING_EMAIL = 'Henryfunes0625@yahoo.com';
+  /* ---------- booking form: posts to Web3Forms ---------- */
   const form = document.getElementById('bookingForm');
   const confirmMsg = document.getElementById('confirmMsg');
+  const submitBtn = document.getElementById('submitBtn');
+  const formError = document.getElementById('formError');
+  const formLoadedAt = Date.now();
 
-  function buildRequest(){
-    const v = id => form.elements[id].value.trim();
-    const lines = [
-      'Hi Henry Heating & Cooling,',
-      '',
-      "I'd like to request an appointment.",
-      '',
-      'Name: ' + v('fname'),
-      'Phone: ' + v('fphone'),
-      'Issue: ' + (v('fservice') || 'not sure yet'),
-      'Town or ZIP: ' + (v('faddress') || 'not given'),
-      '',
-      'Details:',
-      (v('fmessage') || 'No details given.').replace(/\r?\n/g, '\r\n'),
-      '',
-      'Sent from henryheatandcool.com'
-    ];
-    return {
-      subject: 'Service request: ' + (v('fservice') || 'not sure') + ' (' + v('fname') + ')',
-      body: lines.join('\r\n')
-    };
+  function showError(msg){
+    formError.textContent = msg;
+    formError.classList.add('show');
   }
 
-  form.addEventListener('submit', function(e){
+  form.addEventListener('submit', async function(e){
     e.preventDefault();
-    const req = buildRequest();
-    window.location.href = 'mailto:' + BOOKING_EMAIL +
-      '?subject=' + encodeURIComponent(req.subject) +
-      '&body=' + encodeURIComponent(req.body);
-    confirmMsg.classList.add('show');
-    confirmMsg.scrollIntoView({behavior:'smooth', block:'nearest'});
-  });
+    formError.classList.remove('show');
 
-  const copyBtn = document.getElementById('copyBtn');
-  copyBtn.addEventListener('click', async function(){
-    const req = buildRequest();
-    const text = 'To: ' + BOOKING_EMAIL + '\r\nSubject: ' + req.subject + '\r\n\r\n' + req.body;
+    const name = form.elements['Name'].value.trim();
+    const phone = form.elements['Phone'].value.trim();
+    if (!name || !phone) {
+      showError('Please give us a name and a phone number so we can call you back.');
+      return;
+    }
+    // a bot filling the form in under three seconds is not a customer
+    if (Date.now() - formLoadedAt < 3000) {
+      showError('That was quick. Give it a moment and send again.');
+      return;
+    }
+    const captcha = form.querySelector('textarea[name="h-captcha-response"], input[name="h-captcha-response"]');
+    if (captcha && !captcha.value) {
+      showError('Please tick the box to show us you are human.');
+      return;
+    }
+
+    const original = submitBtn.innerHTML;
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending…';
+
     try {
-      await navigator.clipboard.writeText(text);
-      copyBtn.textContent = 'Copied. Paste it into an email.';
+      const data = Object.fromEntries(new FormData(form));
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+        body: JSON.stringify(data)
+      });
+      const json = await res.json().catch(() => ({}));
+      if (res.ok) {
+        form.style.display = 'none';
+        confirmMsg.classList.add('show');
+        confirmMsg.scrollIntoView({behavior: 'smooth', block: 'nearest'});
+      } else {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = original;
+        showError((json && json.message) ? json.message : 'That did not go through. Please call (571) 215-0260 and we will sort it out.');
+        if (window.hcaptcha) { try { window.hcaptcha.reset(); } catch (err) {} }
+      }
     } catch (err) {
-      copyBtn.textContent = "Couldn't copy. Please call us instead.";
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = original;
+      showError('That did not go through — you may be offline. Please call (571) 215-0260.');
+      if (window.hcaptcha) { try { window.hcaptcha.reset(); } catch (e2) {} }
     }
   });
+
+  /* ---------- email addresses assembled at runtime, to keep them out of
+       the page source where address harvesters scrape them ---------- */
+  (function(){
+    const user = 'Henryfunes0625', host = 'yahoo.com';
+    document.querySelectorAll('[data-mail]').forEach(function(el){
+      const addr = user + '@' + host;
+      el.setAttribute('href', 'mail' + 'to:' + addr);
+      if (el.dataset.mail === 'text') el.textContent = addr;
+    });
+  })();
 </script>
+<script src="https://web3forms.com/client/script.js" async defer></script>
 </body>
 </html>
